@@ -12,3 +12,8 @@ D:\SecurityPackage-20190220T151847Z-001\SecurityPackage\SecurityLibrary\bin\Debu
 D:\SecurityPackage-20190220T151847Z-001\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
 D:\SecurityPackage-20190220T151847Z-001\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 D:\SecurityPackage-20190220T151847Z-001\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+E:\FCIS 4th Year\2nd Sem\Security\SecurityPackage\SecurityPackage\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+E:\FCIS 4th Year\2nd Sem\Security\SecurityPackage\SecurityPackage\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+E:\FCIS 4th Year\2nd Sem\Security\SecurityPackage\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
+E:\FCIS 4th Year\2nd Sem\Security\SecurityPackage\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+E:\FCIS 4th Year\2nd Sem\Security\SecurityPackage\SecurityPackage\SecurityLibrary\obj\Debug\SecurityLibrary.pdb

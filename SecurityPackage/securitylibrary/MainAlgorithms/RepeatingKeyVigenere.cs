@@ -12,11 +12,11 @@ namespace SecurityLibrary
         public static char[,] GenerateKeyStream()
         {
             char[,] Keystream = new char[26, 26];
-            char First = 'a';
+            char First = 'A';
             bool StartOver = false;
             for (int i = 0; i < 26; i++)
             {
-                char Second = 'a';
+                char Second = 'A';
                 for (int j = 0; j < 26; j++)
                 {
                     if (StartOver == true)
@@ -28,7 +28,7 @@ namespace SecurityLibrary
                     {
                         Keystream[i, j] = Convert.ToChar((First + j));
                     }
-                    if (Keystream[i, j] == 'z')
+                    if (Keystream[i, j] == 'Z')
                     {
                         StartOver = true;
                     }
@@ -46,12 +46,12 @@ namespace SecurityLibrary
             for (int i = 0; i < CipherText.Length; i++)
             {
                 StringBuilder sb = new StringBuilder(key);
-                int Row = Convert.ToInt32(CipherText[i] - plainText[i]);
+                int Row = Convert.ToInt32(CipherText[i]+32 - plainText[i]);
                 if (Row < 0)
                 {
                     Row += 26;
                 }
-                sb[i] = Convert.ToChar(Row + 'a');
+                sb[i] = Convert.ToChar(Row + 'A');
                 key = sb.ToString();
             }
            return key;   
@@ -70,7 +70,7 @@ namespace SecurityLibrary
             for (int i = 0; i < CipherText.Length; i++)
             {
                 StringBuilder sb = new StringBuilder(plainText);
-                int Column = Convert.ToInt32(CipherText[i] - key[i]);
+                int Column = Convert.ToInt32(CipherText[i]+32 - key[i]);
                 if (Column < 0)
                 {
                     Column += 26;
