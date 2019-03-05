@@ -43,9 +43,28 @@ namespace SecurityLibrary
             throw new NotImplementedException();
         }
 
-        public string Decrypt(string cipherText, string key)
+        public string Decrypt(string CipherText, string key)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
+            string  plainText = CipherText;
+            char[,] Keystream = GenerateKeyStream();
+            while (key.Length < plainText.Length)
+            {
+                key += key;
+            }
+
+            for (int i = 0; i < CipherText.Length; i++)
+            {
+                StringBuilder sb = new StringBuilder(plainText);
+                int Column = Convert.ToInt32(CipherText[i] - key[i]);
+                if (Column < 0)
+                {
+                    Column += 26;
+                }
+                sb[i] = Convert.ToChar(Column + 'a');
+                plainText = sb.ToString();
+            }
+            return plainText;   
         }
 
         public string Encrypt(string plainText, string key)
