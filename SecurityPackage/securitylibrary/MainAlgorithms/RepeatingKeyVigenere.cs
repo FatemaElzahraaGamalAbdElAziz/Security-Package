@@ -28,15 +28,25 @@ namespace SecurityLibrary
                 {
                     break;
                 }
-                int l = 1;
+                int l = 0;
                 while (true)
                 {
                     if (j + l < key.Length && key[i + l] == key[j + l])
                     {
-                        l++;
+                        if (j + l + 1 < key.Length && key[i + l + 1] == key[j + l + 1])
+                        {
+                            l++;
+
+                        }
+                        else if (j + l + 1 >= key.Length)
+                        {
+                            l++;
+                        }
+                        else break;
                     }
                     else
                     {
+
                         break;
                     }
                 }
@@ -44,6 +54,7 @@ namespace SecurityLibrary
                 j--;
                 key = key.Substring(0, key.Length - l);
             }
+           
             return key;
         }
         public static char[,] GenerateKeyStream()
@@ -84,7 +95,7 @@ namespace SecurityLibrary
             {
                 StringBuilder sb = new StringBuilder(key);
                 int Row = Convert.ToInt32(CipherText[i]+32 - plainText[i]);
-                if (Row < 0)
+                while (Row < 0)
                 {
                     Row += 26;
                 }
