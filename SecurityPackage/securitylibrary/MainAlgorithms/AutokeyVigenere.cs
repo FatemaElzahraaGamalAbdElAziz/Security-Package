@@ -72,23 +72,24 @@ namespace SecurityLibrary
 
         public string Decrypt(string CipherText, string key)
         {
-            string plainText = CipherText;
-            char[,] Keystream = GenerateKeyStream();
-            while (key.Length < plainText.Length)
+            string plainText = "";
+            int IntialKeyLength = 0, MaxPlainTextLength = 0;
+            while (plainText.Length < CipherText.Length)
             {
-                key += key;
-            }
-
-            for (int i = 0; i < CipherText.Length; i++)
-            {
-                StringBuilder sb = new StringBuilder(plainText);
-                int Column = Convert.ToInt32(CipherText[i] + 32 - key[i]);
-                if (Column < 0)
+                for (int i = IntialKeyLength; i < key.Length; i++)
                 {
-                    Column += 26;
+                    if (i >= CipherText.Length) break;
+                    int Column = Convert.ToInt32(CipherText[i] + 32 - key[i]);
+                    if (Column < 0)
+                    {
+                        Column += 26;
+                    }
+                    plainText += Convert.ToChar(Column + 'a');
+
                 }
-                sb[i] = Convert.ToChar(Column + 'a');
-                plainText = sb.ToString();
+                IntialKeyLength = key.Length;
+                key += plainText.Substring(MaxPlainTextLength, plainText.Length - MaxPlainTextLength);
+                MaxPlainTextLength += (plainText.Length - MaxPlainTextLength);
             }
             return plainText;   
         }
