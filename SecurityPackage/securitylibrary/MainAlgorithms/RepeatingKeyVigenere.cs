@@ -8,24 +8,9 @@ namespace SecurityLibrary
 {
     public class RepeatingkeyVigenere : ICryptographicTechnique<string, string>
     {
-        public string Analyse(string plainText, string cipherText)
-        {
-            throw new NotImplementedException();
-        }
 
-        public string Decrypt(string cipherText, string key)
+        public static char[,] GenerateKeyStream()
         {
-            throw new NotImplementedException();
-        }
-
-        public string Encrypt(string plainText, string key)
-        {
-            //throw new NotImplementedException();
-            string CipherText = plainText;
-            while (key.Length < plainText.Length)
-            {
-                key += key;
-            }
             char[,] Keystream = new char[26, 26];
             char First = 'a';
             bool StartOver = false;
@@ -51,6 +36,28 @@ namespace SecurityLibrary
                 First = Convert.ToChar(First + 1);
                 StartOver = false;
             }
+            return Keystream;
+        }
+        public string Analyse(string plainText, string cipherText)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Decrypt(string cipherText, string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Encrypt(string plainText, string key)
+        {
+            //throw new NotImplementedException();
+            string CipherText = plainText;
+            while (key.Length < plainText.Length)
+            {
+                key += key;
+            }
+            char[,] Keystream = GenerateKeyStream();
+          
             for (int i = 0; i < plainText.Length; i++)
             {
                 StringBuilder sb = new StringBuilder(CipherText);
