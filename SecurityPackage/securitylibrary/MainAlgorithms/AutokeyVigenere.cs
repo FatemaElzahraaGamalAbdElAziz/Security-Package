@@ -65,9 +65,22 @@ namespace SecurityLibrary
             return Keystream;
         }
 
-        public string Analyse(string plainText, string cipherText)
+        public string Analyse(string plainText, string CipherText)
         {
-            throw new NotImplementedException();
+            char[,] Keystream = GenerateKeyStream();
+            string key = plainText;
+            for (int i = 0; i < CipherText.Length; i++)
+            {
+                StringBuilder sb = new StringBuilder(key);
+                int Row = Convert.ToInt32(CipherText[i] + 32 - plainText[i]);
+                while (Row < 0)
+                {
+                    Row += 26;
+                }
+                sb[i] = Convert.ToChar(Row + 'a');
+                key = sb.ToString();
+            }
+            return ChopKeyAuto(key, plainText);
         }
 
         public string Decrypt(string CipherText, string key)
