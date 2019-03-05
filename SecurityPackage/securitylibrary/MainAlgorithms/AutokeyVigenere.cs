@@ -8,41 +8,30 @@ namespace SecurityLibrary
 {
     public class AutokeyVigenere : ICryptographicTechnique<string, string>
     {
-        public static string ChopKey(string key)
+        public static string ChopKeyAuto(string key,string plainText)
         {
-            bool found = false;
-            int j = key.Length - 1;
-            for (int i = 0; i < key.Length; )
+            string result = "";
+            int l = 0;
+            for (int i = 0; i < key.Length; i++)
             {
-                // i = 0;
-                while (key[i] != key[j])
+                if (key[i] != plainText[l])
                 {
-                    j--;
-                    if (j <= 0)
-                    {
-                        found = true;
-                        break;
-                    }
+                    result += key[i];
                 }
-                if (found == true)
+                else
                 {
-                    break;
-                }
-                int l = 1;
-                while (true)
-                {
-                    if (j + l < key.Length && key[i + l] == key[j + l])
+                    if (i + plainText.Length > key.Length)
                     {
-                        l++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                        key = result;
 
-                j--;
-                key = key.Substring(0, key.Length - l);
+                        break;
+                    }
+                    string temp = key.Substring(i, plainText.Length);
+                    if (temp == plainText)
+                    {
+                        key = key.Substring(0, i);
+                    }
+                }
             }
             return key;
         }
