@@ -8,9 +8,22 @@ namespace SecurityLibrary
 {
     public class RailFence : ICryptographicTechnique<string, int>
     {
-        public int Analyse(string plainText, string cipherText)
+        public int Analyse(string plainText, string CipherText)
         {
-            throw new NotImplementedException();
+            int i = 1, key = 0;
+            while (i < plainText.Length)
+            {
+                string Result = Encrypt(plainText, i);
+                Console.WriteLine(Result);
+                Console.WriteLine(CipherText);
+                if (Result.Equals(CipherText, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    key = i;
+                    break;
+                }
+                i++;
+            }
+            return key;
         }
 
         public string Decrypt(string CipherText, int key)
@@ -22,6 +35,7 @@ namespace SecurityLibrary
             {
                 for (int j = 0; j < Depth; j++)
                 {
+                    if (index >= CipherText.Length) continue;
                     Matrix[i, j] = CipherText[index];
                     index++;
                 }
@@ -34,7 +48,7 @@ namespace SecurityLibrary
                     Result += (Matrix[j, i]);
                 }
             }
-            return Result;
+            return Result.ToLower();
         }
 
         public string Encrypt(string plainText, int key)
