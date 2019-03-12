@@ -8,9 +8,59 @@ namespace SecurityLibrary
 {
     public class Columnar : ICryptographicTechnique<string, List<int>>
     {
-        public List<int> Analyse(string plainText, string cipherText)
+        public static void GetPermutation(List<List<int>> All, List<int> key, int size)
         {
-            throw new NotImplementedException();
+            if (size == 1)
+            {
+                All.Add(new List<int>(key));
+
+            }
+            for (int i = 0; i < size; i++)
+            {
+                GetPermutation(All, key, size - 1);
+                if (size % 2 == 0)
+                {
+                    int temp = key[i];
+                    key[i] = key[size - 1];
+                    key[size - 1] = temp;
+                }
+                else
+                {
+                    int temp = key[0];
+                    key[0] = key[size - 1];
+                    key[size - 1] = temp;
+                }
+            }
+        }
+        public List<int> Analyse(string plainText, string CipherText)
+        {
+           // throw new NotImplementedException();
+            List<int> key = new List<int>();
+            int size = 1;
+            bool Stop = false;
+            while (Stop == false)
+            {
+                if (size > 10) break;
+                key = new List<int>(size);
+                for (int i = 0; i < size; i++)
+                {
+                    key.Add(i + 1);
+                }
+                List<List<int>> AllKeys = new List<List<int>>();
+                GetPermutation(AllKeys, key, key.Count);
+                foreach (var tempKey in AllKeys)
+                {
+                    string Result = Encrypt(plainText, tempKey);
+                    if (Result.Equals(CipherText, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        key = tempKey;
+                        Stop = true;
+                        break;
+                    }
+                }
+                size++;
+            }
+            return key;
         }
 
         public string Decrypt(string CipherText, List<int> key)
