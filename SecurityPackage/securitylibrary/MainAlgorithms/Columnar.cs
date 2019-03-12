@@ -13,9 +13,44 @@ namespace SecurityLibrary
             throw new NotImplementedException();
         }
 
-        public string Decrypt(string cipherText, List<int> key)
+        public string Decrypt(string CipherText, List<int> key)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            int col = key.Count, row = (int)Math.Ceiling((double)CipherText.Length / key.Count);
+            char[,] Matrix = new char[row, col], NewMatrix = new char[row, col];
+            int index = 0;
+            for (int j = 0; j < col; j++)
+            {
+                for (int i = 0; i < row; i++)
+                {
+                    if (index < CipherText.Length)
+                    {
+                        Matrix[i, j] = CipherText[index];
+                        index++;
+                    }
+                    else
+                    {
+                        Matrix[i, j] = ' ';
+                    }
+                }
+            }
+            string Result = "";
+            for (int j = 0; j < col; j++)
+            {
+                for (int i = 0; i < row; i++)
+                {
+                    index = key.IndexOf(j + 1);
+                    NewMatrix[i, index] = Matrix[i, j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    Result += NewMatrix[i, j];
+                }
+            }
+            return Result.ToLower();
         }
 
         public string Encrypt(string plainText, List<int> key)
